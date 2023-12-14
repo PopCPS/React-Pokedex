@@ -1,16 +1,22 @@
 import PokemonCard from "./pokemonCard"
+import NextPageButton from "./nextPokemonPageButton";
 import { useEffect, useState } from "react"
+import "./assets/app.css"
 
 function App() {
 
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [baseURL, setBaseURL] = useState(null)
+
+  
   
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=20&offset=0");
+          setBaseURL(`https://pokeapi.co/api/v2/pokemon?limit=21&offset=0`)
+          const response = await fetch(baseURL);
         if (response.ok) {
           const result = await response.json();
           setData(result);
@@ -34,7 +40,7 @@ function App() {
   }
 
   return (
-    <>
+    <div className="pokemon-card-container">
       {data.results.map((data, index) => {
         return (
           <PokemonCard
@@ -44,7 +50,10 @@ function App() {
           />
         )
       })}
-    </>
+      <NextPageButton
+
+      />
+    </div>
   )
 }
 

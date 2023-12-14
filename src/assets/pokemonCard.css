@@ -1,0 +1,146 @@
+.bug-type-color{
+    background-color: #789c3c;
+}
+
+.dark-type-color{
+    background-color: #705746;
+}
+
+.dragon-type-color{
+    background-color: #6f35fc;
+}
+
+.electric-type-color{
+    background-color: #ffd970;
+}
+
+.fairy-type-color{
+    background-color: #d685ad;
+}
+
+.fighting-type-color{
+    background-color: #c22e28;
+}
+
+.fire-type-color{
+    background-color: #fb6c6c;
+}
+.fire-type-color-name{
+    background-color: #fd8686;
+}
+
+.flying-type-color{
+    background-color: #a98ff3;
+}
+
+.ghost-type-color{
+    background-color: #735797;
+}
+
+.grass-type-color{
+    background-color: #46d1b1;
+}
+.grass-type-color-name{
+    background-color: #5de0c7;
+}
+
+.ground-type-color{
+    background-color: #e2bf65;
+}
+
+.ice-type-color{
+    background-color: #96d9d6;
+}
+
+.normal-type-color{
+    background-color: #a8a77a;
+}
+
+.poison-type-color{
+    background-color: #af64c8;
+}
+
+.psychic-type-color{
+    background-color: #f95587;
+}
+
+.rock-type-color{
+    background-color: #b6a136;
+}
+
+.steel-type-color{
+    background-color: #b7b7ce;
+}
+
+.water-type-color{
+    background-color: #77befe;
+}
+.water-type-color-name{
+    background-color: #8ccefe;
+}
+
+.card-general-style{
+    border-radius: 3vh;
+
+    margin: 1vh;
+    padding: 2vh;
+    padding-left: 4vh;
+
+    width: 40vh;
+    height: 28vh;
+
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+
+    background-image: url("./pokeball-background.png");
+    background-position: bottom right;
+
+    font-family: 'Heebo', sans-serif;
+}
+
+.card-image{    
+    height: 20vh;   
+    width: 20vh;
+
+    position: absolute;
+    z-index: 0;
+
+    padding-top: 8vh;
+}
+
+.flexbox-div{
+    display: flex;
+    flex-direction: column;
+}
+
+.flexbox-name-type{
+    padding-top: 1vh;
+}
+
+.flexbox-img-id{
+    justify-content: flex-start;
+    align-items: flex-end;
+}
+
+.pokemon-name{
+    padding-top: 2vh;
+    font-size: 3em;
+    z-index: 1;
+}
+
+.pokemon-id{
+    font-size: 2em;
+    padding: 2vh;
+    z-index: 1;
+    opacity: 25%;
+    font-weight: 700;
+}
+
+.pokemon-type{
+    font-size: 1.5em;
+    margin-top: 4vh;
+    padding: 1.5vh 3vh;
+    border-radius: 3vh;
+    width: fit-content;
+}
