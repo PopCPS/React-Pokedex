@@ -1,0 +1,16 @@
+.page-buttons{
+    border: none;
+    border-radius: 30px;
+
+    background-color: #30a7d7;
+
+    font-family: 'Heebo', sans-serif;
+    font-weight: 700;
+    font-size: 4em;
+    color: #FAFAFA;
+
+    width: 100px;
+    height: 100px;
+
+    margin: 5px;
+}

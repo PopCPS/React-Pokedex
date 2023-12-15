@@ -1,30 +1,28 @@
+import fetchData from "./api"
 import { useEffect, useState } from "react" 
 import './assets/pokemonCard.css'
 
 const PokemonCard = (props) => {
 
+    const apiUrl = `https://pokeapi.co/api/v2/pokemon/${props.idPokemon}`
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-  
+
     useEffect(() => {
-        const fetchData = async () => {
-        try {
-            const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${props.idPokemon + 1}`);
-            if (response.ok) {
-            const result = await response.json();
+        const fetchDataAsync = async () => {
+          try {
+            const result = await fetchData(apiUrl);
             setData(result);
-            } else {
-            throw new Error(`Request failed with status ${response.status}`);
-            }
-        } catch (error) {
-            setError(error);
-        } finally {
+          } catch (error) {
+            setError(error.message);
+          } finally {
             setLoading(false);
-        }
+          }
         };
-        fetchData();
-    }, [])
+    
+        fetchDataAsync();
+      }, [apiUrl]);
 
     if (loading) {
         return <p>Loading...</p>;
@@ -33,10 +31,10 @@ const PokemonCard = (props) => {
         return <p>Error: {error.message}</p>;
     }
 
-    const idPokemonCorreto = props.idPokemon + 1
+    const idPokemonCorreto = parseInt(props.idPokemon)
 
     return (
-        <div className={`card-general-style ${data.types[0].type.name}-type-color`} >
+        <div className={`card-general-style ${data.types[0].type.name}`} >
             <div className="flexbox-div flexbox-name-type">
                 <h2 className="pokemon-name">{props.pokeName[0].toUpperCase() + props.pokeName.slice(1)}</h2>
                 <div className="flexbox-div">
@@ -44,7 +42,7 @@ const PokemonCard = (props) => {
                         return (
                             <h3 
                                 key={index}
-                                className={`pokemon-type ${data.types[0].type.name}-type-color-name`}
+                                className={`pokemon-type ${pokemonType.type.name}-type`}
                             >
                                 {pokemonType.type.name}
                             </h3>
@@ -56,7 +54,7 @@ const PokemonCard = (props) => {
                 <h2 className="pokemon-id">
                     #{'0'.repeat( Math.max(4 - idPokemonCorreto.toString().length, 0)) + idPokemonCorreto}
                 </h2>
-                <img className="card-image" src={`https://unpkg.com/pokeapi-sprites@2.0.2/sprites/pokemon/other/dream-world/${props.idPokemon + 1}.svg`}></img>
+                <img className="card-image" src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${props.idPokemon}.png`}></img>
                 
             </div>
         </div>

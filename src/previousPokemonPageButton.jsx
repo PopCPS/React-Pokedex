@@ -1,7 +1,7 @@
 import useStore from "./useStore";
 import './assets/pageButtons.css'
 
-const NextPageButton = (props) => {
+const PreviousPageButton = (props) => {
 
     const { setApiUrl } = useStore()
     
@@ -9,14 +9,14 @@ const NextPageButton = (props) => {
         <>
             <button className="page-buttons"
                 onClick={() => {
-                    console.log(props.nextPageUrl)
-                    setApiUrl(props.nextPageUrl)
+                    console.log(props.previousPageUrl)
+                    setApiUrl(props.previousPageUrl)
                 }}
             >
-                {'>'}
+                {'<'}
             </button>
         </>
     )
 }
 
-export default NextPageButton
+export default PreviousPageButton

@@ -1,5 +1,9 @@
+import fetchData from "./api";
 import PokemonCard from "./pokemonCard"
 import NextPageButton from "./nextPokemonPageButton";
+import PreviousPageButton from "./previousPokemonPageButton";
+import SidePokemonCard from "./sidePokemonCard";
+import useStore from "./useStore";
 import { useEffect, useState } from "react"
 import "./assets/app.css"
 
@@ -8,29 +12,23 @@ function App() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [baseURL, setBaseURL] = useState(null)
+  const { apiUrl } = useStore()
 
-  
-  
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchDataAsync = async () => {
       try {
-          setBaseURL(`https://pokeapi.co/api/v2/pokemon?limit=21&offset=0`)
-          const response = await fetch(baseURL);
-        if (response.ok) {
-          const result = await response.json();
-          setData(result);
-        } else {
-          throw new Error(`Request failed with status ${response.status}`);
-        }
+        const result = await fetchData(apiUrl);
+        setData(result);
       } catch (error) {
-        setError(error);
+        setError(error.message);
       } finally {
         setLoading(false);
       }
     };
-    fetchData();
-  }, [])
+
+    fetchDataAsync();
+  }, [apiUrl]);
+
 
   if (loading) {
     return <p>Loading...</p>;
@@ -40,21 +38,57 @@ function App() {
   }
 
   return (
-    <div className="pokemon-card-container">
-      {data.results.map((data, index) => {
-        return (
-          <PokemonCard
-            idPokemon = {index}
-            pokeName = {data.name}
-            key = {index}
-          />
-        )
-      })}
-      <NextPageButton
-
-      />
-    </div>
+    <>
+      <nav>
+        <input type="text" />
+        <button></button>
+      </nav>
+      <main className="central-portion">
+        <PreviousPageButton
+          url = {apiUrl}
+          previousPageUrl = {data.previous}
+        />
+        <div className="pokemon-card-container">
+          {data.results.map((data, index) => {
+            return (
+              <PokemonCard
+                idPokemon = {data.url.match(/(?<=\/)\d+?(?=\/)/gm)[0]}
+                pokeName = {data.name}
+                key = {index}
+              />
+            )
+          })}
+        </div>
+        <SidePokemonCard/>
+        <NextPageButton
+          url = {apiUrl}
+          nextPageUrl = {data.next}
+        />
+      </main>
+    </>
   )
 }
 
 export default App
+
+{/* <div className="pokemon-card-container">
+        {data.results.map((data, index) => {
+          return (
+            <PokemonCard
+              idPokemon = {data.url.match(/(?<=\/)\d+?(?=\/)/gm)[0]}
+              pokeName = {data.name}
+              key = {index}
+            />
+          )
+        })}
+      </div>
+      <PreviousPageButton
+        url = {apiUrl}
+        previousPageUrl = {data.previous}
+      />
+      <NextPageButton
+        url = {apiUrl}
+        nextPageUrl = {data.next}
+      /> */}
+
+      // source https://www.behance.net/gallery/113562309/Pokemon-Pokedex-Website-Redesign-Concept?tracking_source=search_projects&l=9

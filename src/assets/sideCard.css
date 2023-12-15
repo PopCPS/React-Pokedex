@@ -1,0 +1,85 @@
+.image{
+    height: 300px;
+    width: 300px;
+}
+
+.id{
+    font-weight: 100;
+}
+
+.name{
+    font-weight: 900;
+    font-size: 1.5em;
+    text-align: center;
+}
+
+.side-card-titles{
+    font-weight: 900;
+    font-size: 0.9em;
+    text-align: center;
+}
+
+.stats{
+    font-weight: 900;
+
+    color: white;
+    text-align: center;
+    font-size: .7em;
+
+    padding: 5px;
+    padding-top: 11px;
+    width: 25px;
+    height: 19px;
+
+    border-radius: 50%;
+}
+
+.stats-HP{
+    background-color: #df2140;
+}
+
+.stats-ATK{
+    background-color: #fe8745;
+}
+
+.stats-DEF{
+    background-color: #fedc60;
+}
+
+.stats-SpA{
+    background-color: #85ddff;
+}
+
+.stats-SpD{
+    background-color: #a8f087;
+}
+
+.stats-SPD{
+    background-color: #ef838d;
+}
+
+.stats-TOT{
+    background-color: #8197d7;
+}
+
+.stats-number{
+    text-align: center;
+    font-size: 1em;
+    font-weight: 600;
+    margin: 5px 0;
+}
+
+.stats-block{
+    display: flex;
+    flex-direction: column;
+    background-color: #f6f8fc;
+    width: fit-content;
+    row-gap: 5px;
+    border-radius: 50vw;
+}
+
+.stats-row{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
