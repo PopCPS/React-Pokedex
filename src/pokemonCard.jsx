@@ -1,4 +1,5 @@
 import fetchData from "./api"
+import useStore from "./useStore"
 import { useEffect, useState } from "react" 
 import './assets/pokemonCard.css'
 
@@ -8,6 +9,7 @@ const PokemonCard = (props) => {
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const { setShowSideBar } = useStore();
 
     useEffect(() => {
         const fetchDataAsync = async () => {
@@ -34,7 +36,12 @@ const PokemonCard = (props) => {
     const idPokemonCorreto = parseInt(props.idPokemon)
 
     return (
-        <div className={`card-general-style ${data.types[0].type.name}`} >
+        <div 
+            className={`card-general-style ${data.types[0].type.name}`}
+            onClick={(event) => {
+                setShowSideBar(event.currentTarget.querySelector('.pokemon-id').innerHTML.replace(/#0*([1-9]\d*)/, "$1"))
+            }}
+        >
             <div className="flexbox-div flexbox-name-type">
                 <h2 className="pokemon-name">{props.pokeName[0].toUpperCase() + props.pokeName.slice(1)}</h2>
                 <div className="flexbox-div">
@@ -44,7 +51,7 @@ const PokemonCard = (props) => {
                                 key={index}
                                 className={`pokemon-type ${pokemonType.type.name}-type`}
                             >
-                                {pokemonType.type.name}
+                                {pokemonType.type.name.toUpperCase()}
                             </h3>
                         )
                     })}

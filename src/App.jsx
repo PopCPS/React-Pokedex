@@ -12,7 +12,7 @@ function App() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const { apiUrl } = useStore()
+  const { apiUrl, showSideBar } = useStore();
 
   useEffect(() => {
     const fetchDataAsync = async () => {
@@ -59,7 +59,7 @@ function App() {
             )
           })}
         </div>
-        <SidePokemonCard/>
+        {showSideBar != 0 ? <SidePokemonCard/> : null}
         <NextPageButton
           url = {apiUrl}
           nextPageUrl = {data.next}
