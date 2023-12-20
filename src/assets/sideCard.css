@@ -1,6 +1,6 @@
 .side-bar{
     width: 350px;
-    height: 720px;
+    /* height: 720px; */
 
     margin: 5px 0;
     padding: 20px;
@@ -12,6 +12,7 @@
     display: flex;
     flex-direction: column;
     row-gap: 8px;
+    align-items: center;
 }
 
 .image{
@@ -48,6 +49,14 @@
 .description{
     text-align: center;
     color: #231f20;
+    height: 80px;
+}
+
+.pokemon-type-side-card{
+    display: flex;
+    flex-direction: row;
+    column-gap: 8px;
+    justify-content: center;
 }
 
 .pokemon-data-info{

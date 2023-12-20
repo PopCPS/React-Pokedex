@@ -92,3 +92,4 @@ export default App
       /> */}
 
       // source https://www.behance.net/gallery/113562309/Pokemon-Pokedex-Website-Redesign-Concept?tracking_source=search_projects&l=9
+      // type svg https://github.com/duiker101/pokemon-type-svg-icons/tree/master/icons

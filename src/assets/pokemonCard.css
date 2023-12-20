@@ -156,6 +156,7 @@
 .flexbox-div{
     display: flex;
     flex-direction: column;
+    justify-content: space-around;
 }
 
 .flexbox-name-type{
@@ -184,7 +185,7 @@
 
 .pokemon-type{
     font-size: .75em;
-    margin-top: 20px;
+    margin-top: 10px;
     padding: 5px 15px;
     border-radius: 3vh;
     font-weight: 700;
