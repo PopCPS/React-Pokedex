@@ -9,7 +9,7 @@ const PokemonCard = (props) => {
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const { setShowSideBar } = useStore();
+    const { setSideBarPokemonID } = useStore();
 
     useEffect(() => {
         const fetchDataAsync = async () => {
@@ -39,7 +39,7 @@ const PokemonCard = (props) => {
         <div 
             className={`card-general-style ${data.types[0].type.name}`}
             onClick={(event) => {
-                setShowSideBar(event.currentTarget.querySelector('.pokemon-id').innerHTML.replace(/#0*([1-9]\d*)/, "$1"))
+                setSideBarPokemonID(event.currentTarget.querySelector('.pokemon-id').innerHTML.replace(/#0*([1-9]\d*)/, "$1"))
             }}
         >
             <div className="flexbox-div flexbox-name-type">

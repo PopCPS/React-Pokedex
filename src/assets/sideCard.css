@@ -89,6 +89,13 @@
     color: #071a3a;
 }
 
+.weakness-img{
+    height: 16px;
+    width: 16px;
+    padding: 8px;
+    border-radius: 50%;
+}
+
 .stats{
     font-weight: 900;
 

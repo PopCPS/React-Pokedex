@@ -1,5 +1,6 @@
 import useStore from './useStore';
 import fetchData from "./api";
+import PokemonWeaknesses from "./pokemonWeaknesses";
 import { useState, useEffect } from 'react';
 import './assets/sideCard.css'
 
@@ -9,27 +10,29 @@ const SidePokemonCard = (props) => {
     const [speciesData, setSpeciesData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const { showSideBar } = useStore();
+    const { sideBarPokemonID } = useStore();
 
     useEffect(() => {
         const fetchDataAsync = async () => {
-        try {
-        const result1 = await fetchData(`https://pokeapi.co/api/v2/pokemon/${showSideBar}/`);
-        setPokemonData(result1);
-        const result2 = await fetchData(`https://pokeapi.co/api/v2/pokemon-species/${showSideBar}/`)
-        setSpeciesData(result2);
-        } catch (error) {
-            setError(error.message);
-        } finally {
-            setLoading(false);
-        }
+            if(sideBarPokemonID != 0){
+                try {
+                const result1 = await fetchData(`https://pokeapi.co/api/v2/pokemon/${sideBarPokemonID}/`);
+                setPokemonData(result1);
+                const result2 = await fetchData(`https://pokeapi.co/api/v2/pokemon-species/${sideBarPokemonID}/`)
+                setSpeciesData(result2);
+                } catch (error) {
+                    setError(error.message);
+                } finally {
+                    setLoading(false);
+                }
+            }
         };
         
         fetchDataAsync();
-    }, [showSideBar]);
+    }, [sideBarPokemonID]);
 
     if (loading) {
-        return <p>Loading...</p>;
+        return
     }
     if (error) {
         return <p>Error: {error.message}</p>;
@@ -37,8 +40,8 @@ const SidePokemonCard = (props) => {
 
     return (
         <section className="side-bar">
-            <img className="image" src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${showSideBar}.png`}></img>
-            <h3 className='id'>#{'0'.repeat( Math.max(4 - showSideBar.toString().length, 0)) + showSideBar}</h3>
+            <img className="image" src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${sideBarPokemonID}.png`}></img>
+            <h3 className='id'>#{'0'.repeat( Math.max(4 - sideBarPokemonID.toString().length, 0)) + sideBarPokemonID}</h3>
             <h2 className='name'>{pokemonData.name.charAt(0).toUpperCase() + pokemonData.name.slice(1).toLowerCase()}</h2>
             <h4 className='genus'>{speciesData.genera[7].genus}</h4>
             <div className='pokemon-type-side-card'>
@@ -76,17 +79,9 @@ const SidePokemonCard = (props) => {
                 </div>
                 <div className='pokemon-data'>
                     <h2 className='side-card-titles'>WEAKNESSES</h2>
-                    {pokemonData.types.map((pokemonType, index) => {
-                    return (
-                        <h3 
-                            key={index}
-                            className={`pokemon-type ${pokemonType.type.name}-type`}
-                        >
-                            {pokemonType.type.name.toUpperCase()}
-                        </h3>
-                    )
-                    })}
-                    <div></div>
+                    <PokemonWeaknesses
+                        types = {pokemonData.types}
+                    />
                 </div>
                 <div className='pokemon-data'>
                     <h2 className='side-card-titles'>BASE EXP</h2>

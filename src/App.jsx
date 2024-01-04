@@ -9,7 +9,7 @@ import "./assets/app.css"
 
 function App() {
 
-  const [data, setData] = useState(null);
+  const [pokemonData, setPokemonData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const { apiUrl, showSideBar } = useStore();
@@ -18,7 +18,7 @@ function App() {
     const fetchDataAsync = async () => {
       try {
         const result = await fetchData(apiUrl);
-        setData(result);
+        setPokemonData(result);
       } catch (error) {
         setError(error.message);
       } finally {
@@ -46,10 +46,10 @@ function App() {
       <main className="central-portion">
         <PreviousPageButton
           url = {apiUrl}
-          previousPageUrl = {data.previous}
+          previousPageUrl = {pokemonData.previous}
         />
         <div className="pokemon-card-container">
-          {data.results.map((data, index) => {
+          {pokemonData.results.map((data, index) => {
             return (
               <PokemonCard
                 idPokemon = {data.url.match(/(?<=\/)\d+?(?=\/)/gm)[0]}
@@ -62,7 +62,7 @@ function App() {
         {showSideBar != 0 ? <SidePokemonCard/> : null}
         <NextPageButton
           url = {apiUrl}
-          nextPageUrl = {data.next}
+          nextPageUrl = {pokemonData.next}
         />
       </main>
     </>
@@ -91,5 +91,5 @@ export default App
         nextPageUrl = {data.next}
       /> */}
 
-      // source https://www.behance.net/gallery/113562309/Pokemon-Pokedex-Website-Redesign-Concept?tracking_source=search_projects&l=9
+      // source https://www.behance.net/gallery/113562  309/Pokemon-Pokedex-Website-Redesign-Concept?tracking_source=search_projects&l=9
       // type svg https://github.com/duiker101/pokemon-type-svg-icons/tree/master/icons
