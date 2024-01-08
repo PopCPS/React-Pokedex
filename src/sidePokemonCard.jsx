@@ -1,6 +1,6 @@
 import useStore from './useStore';
 import fetchData from "./api";
-import PokemonWeaknesses from "./pokemonWeaknesses";
+import PokemonWeaknesses from "./pokemonWeaknesses";    
 import { useState, useEffect } from 'react';
 import './assets/sideCard.css'
 
@@ -8,18 +8,36 @@ const SidePokemonCard = (props) => {
 
     const [pokemonData, setPokemonData] = useState(null);
     const [speciesData, setSpeciesData] = useState(null);
+    const [type1Data, setType1Data] = useState(null);
+    const [type2Data, setType2Data] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const { sideBarPokemonID } = useStore();
+    const weaknessArray = [];
 
     useEffect(() => {
+        setType2Data(null)
         const fetchDataAsync = async () => {
             if(sideBarPokemonID != 0){
                 try {
-                const result1 = await fetchData(`https://pokeapi.co/api/v2/pokemon/${sideBarPokemonID}/`);
-                setPokemonData(result1);
-                const result2 = await fetchData(`https://pokeapi.co/api/v2/pokemon-species/${sideBarPokemonID}/`)
-                setSpeciesData(result2);
+                    const result1 = await fetchData(`https://pokeapi.co/api/v2/pokemon/${sideBarPokemonID}/`);
+                    setPokemonData(result1);
+                    const result2 = await fetchData(`https://pokeapi.co/api/v2/pokemon-species/${sideBarPokemonID}/`)
+                    setSpeciesData(result2);
+
+                    const result3 = await fetchData(pokemonData.types[0].type.url);
+                    setType1Data(result3);
+                    // if(pokemonData.types.lenght != 0){
+                    //     const result4 = await fetchData(pokemonData.types[1].type.url);
+                    //     setType2Data(result4);
+                    // }
+
+                    type1Data.damage_relations.double_damage_from.map((doubleDamageTaken) => {
+                        weaknessArray.push(doubleDamageTaken)
+                    })
+
+
+
                 } catch (error) {
                     setError(error.message);
                 } finally {
@@ -29,14 +47,23 @@ const SidePokemonCard = (props) => {
         };
         
         fetchDataAsync();
+        console.log(type1Data)
+        console.log(weaknessArray)
+        console.log('id:' + sideBarPokemonID)
     }, [sideBarPokemonID]);
+
+    // if(type2Data != null){
+    //     type2Data.damage_relations.double_damage_from.map((doubleDamageTaken) => {
+    //         weaknessArray.push(doubleDamageTaken)
+    //     })
+    // }
 
     if (loading) {
         return
     }
-    if (error) {
-        return <p>Error: {error.message}</p>;
-    }
+    // if (error) {
+    //     return <p>Error: {error.message}</p>;
+    // }
 
     return (
         <section className="side-bar">
@@ -79,9 +106,18 @@ const SidePokemonCard = (props) => {
                 </div>
                 <div className='pokemon-data'>
                     <h2 className='side-card-titles'>WEAKNESSES</h2>
-                    <PokemonWeaknesses
-                        types = {pokemonData.types}
-                    />
+                    {
+                        weaknessArray.map((type, index) => {
+                            return (
+                                <img
+                                    key={index}
+                                    className={`weakness-img ${type.name}`}
+                                    src={`https://raw.githubusercontent.com/duiker101/pokemon-type-svg-icons/5781623f147f1bf850f426cfe1874ba56a9b75ee/icons/${type.name}.svg`}
+                                >
+                                </img>
+                            )
+                        })
+                    }
                 </div>
                 <div className='pokemon-data'>
                     <h2 className='side-card-titles'>BASE EXP</h2>
